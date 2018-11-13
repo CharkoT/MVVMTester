@@ -1,3 +1,3 @@
 # MVVMTester
 
-Android MVVM + LiveData + Room? and ... Rx...?
+Android MVVM + LiveData  and ... Rx...?
