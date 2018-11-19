@@ -21,9 +21,11 @@ public class ImageViewViewModel extends ViewModel {
         return pictures;
     }
 
-    public void updatePicture(int position, Picture picture) {
+    public LiveData<List<Picture>> updatePicture(int position, Picture picture) {
         if (repository != null) {
             repository.updatePicture(position, picture);
         }
+
+        return repository.getPictures();
     }
 }
