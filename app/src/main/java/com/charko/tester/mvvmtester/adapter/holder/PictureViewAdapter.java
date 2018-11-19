@@ -45,15 +45,18 @@ public class PictureViewAdapter extends RecyclerView.Adapter<PictureViewAdapter.
             tvLoc = itemView.findViewById(R.id.loc_tv);
             etDesc = itemView.findViewById(R.id.etc_et);
 
-            itemView.setOnClickListener(view -> {
-                int position = getAdapterPosition();
-                if (onItemClickListener != null && position != RecyclerView.NO_POSITION)
-                    onItemClickListener.onItemClick(position);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (onItemClickListener != null && position != RecyclerView.NO_POSITION)
+                        onItemClickListener.onItemClick(position);
+                }
             });
         }
     }
 
-    private List<Picture> items = new ArrayList<>();
+    private List<Picture> itmes = new ArrayList<>();
 
     @NonNull
     @Override
@@ -65,28 +68,25 @@ public class PictureViewAdapter extends RecyclerView.Adapter<PictureViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull PictureViewHolder holder, int position) {
-        Picture picture = items.get(position);
-        Glide.with(holder.itemView.getContext()).load(picture.getUri()).into(holder.ivPicture);
-        holder.tvUri.setText(picture.getUri().toString());
-        holder.tvFilename.setText(picture.getFilename());
-        holder.tvLoc.setText(picture.getLocation());
-        holder.etDesc.setText(picture.getDesc());
+        Glide.with(holder.itemView.getContext()).load(itmes.get(position).getUri()).into(holder.ivPicture);
+        holder.tvUri.setText(itmes.get(position).getUri().toString());
+        holder.tvFilename.setText(itmes.get(position).getFilename());
+        holder.tvLoc.setText(itmes.get(position).getLocation());
         holder.etDesc.setFocusable(false);
         holder.etDesc.setFocusableInTouchMode(false);
-        holder.etDesc.setClickable(false);
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return itmes.size();
     }
 
-    public void setItems(List<Picture> items) {
-        this.items = items;
+    public void setItmes(List<Picture> itmes) {
+        this.itmes = itmes;
         notifyDataSetChanged();
     }
 
     public Picture getItem(int position) {
-        return items.get(position);
+        return itmes.get(position);
     }
 }
