@@ -1,37 +1,31 @@
 package com.charko.tester.mvvmtester.ui.imageview;
 
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.support.annotation.NonNull;
-import android.util.Log;
+import android.arch.lifecycle.ViewModel;
+import android.content.Context;
 
 import com.charko.tester.mvvmtester.simplemodel.Picture;
 
 import java.util.List;
 
-public class ImageViewViewModel extends AndroidViewModel {
+public class ImageViewViewModel extends ViewModel {
     // TODO: Implement the ViewModel
 
-    private LiveData<List<Picture>> pictures;
+    private MutableLiveData<List<Picture>> pictures;
     private ImageViewRepository repository;
 
-    public ImageViewViewModel(@NonNull Application application) {
-        super(application);
-
-        repository = ImageViewRepository.getInstance(application);
+    public LiveData<List<Picture>> getPictures(Context context) {
+        repository = ImageViewRepository.getInstance(context);
         pictures = repository.getPictures();
-
-        Log.e(">>>>>>>>>>>>>", ">>>>>>>>>>>>>> ImageViewViewModel oninit");
-
+        return pictures;
     }
 
-    public LiveData<List<Picture>> getPictures() {
-        if (pictures == null) {
-            pictures = new MutableLiveData<>();
+    public LiveData<List<Picture>> updatePicture(int position, Picture picture) {
+        if (repository != null) {
+            repository.updatePicture(position, picture);
         }
 
-        return pictures;
+        return repository.getPictures();
     }
 }

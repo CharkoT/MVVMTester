@@ -6,9 +6,10 @@
     tools:context=".MainActivityFragment"
     tools:showIn="@layout/activity_main">
 
-   <android.support.v7.widget.RecyclerView
-       android:id="@+id/picture_list_rv"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/picture_list_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/image_item" />
 
 </RelativeLayout>
