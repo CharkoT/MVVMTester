@@ -49,7 +49,6 @@ public class ImageViewRepository {
                 null,
                 MediaStore.Images.Media.DATE_ADDED + " DESC");      // 정렬 안 함
 
-
         // 이것도 또한 함수로.?
         imageCursor.moveToFirst();
         Log.e(">>>>>>>>>>>>", " imageIndex : " + imageIndex);
