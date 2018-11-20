@@ -21,15 +21,11 @@ public class ImageViewActivity extends AppCompatActivity {
                     .replace(R.id.container, imageViewFragment)
                     .commitNow();
         }
-
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        setResult(RESULT_OK);
-        finish();
     }
 
     @Override
