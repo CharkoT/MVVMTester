@@ -25,6 +25,9 @@ view 와 viewmodel 관계는 1대 다 구조를 형성 할 수 있다.
 
 
 Android MVVM + LiveData
+<div>
+<img width=800 src="https://user-images.githubusercontent.com/8044971/48749947-5e9ca400-ecc0-11e8-96a7-6efa4917ddbd.png">
+</div>
 
 Get in images from device
 and print EXIF info
@@ -34,5 +37,3 @@ and print EXIF info
 activity 설명, MainActivity - 10개의 사진을 불러오고 recyclerView로 exif정보를 뿌려준다.
 
 선택하면 ImageViewActivity로 들어가 description을 수정하고 뒤로 가면 저장이 된다.
-
-
