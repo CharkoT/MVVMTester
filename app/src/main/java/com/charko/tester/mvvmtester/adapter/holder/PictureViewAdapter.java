@@ -56,7 +56,7 @@ public class PictureViewAdapter extends RecyclerView.Adapter<PictureViewAdapter.
         }
     }
 
-    private List<Picture> itmes = new ArrayList<>();
+    private List<Picture> items = new ArrayList<>();
 
     @NonNull
     @Override
@@ -68,25 +68,28 @@ public class PictureViewAdapter extends RecyclerView.Adapter<PictureViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull PictureViewHolder holder, int position) {
-        Glide.with(holder.itemView.getContext()).load(itmes.get(position).getUri()).into(holder.ivPicture);
-        holder.tvUri.setText(itmes.get(position).getUri().toString());
-        holder.tvFilename.setText(itmes.get(position).getFilename());
-        holder.tvLoc.setText(itmes.get(position).getLocation());
+        Picture picture = items.get(position);
+        Glide.with(holder.itemView.getContext()).load(picture.getUri()).into(holder.ivPicture);
+        holder.tvUri.setText(picture.getUri().toString());
+        holder.tvFilename.setText(picture.getFilename());
+        holder.tvLoc.setText(picture.getLocation());
+        holder.etDesc.setText(picture.getDesc());
         holder.etDesc.setFocusable(false);
         holder.etDesc.setFocusableInTouchMode(false);
+        holder.etDesc.setClickable(false);
     }
 
     @Override
     public int getItemCount() {
-        return itmes.size();
+        return items.size();
     }
 
-    public void setItmes(List<Picture> itmes) {
-        this.itmes = itmes;
+    public void setItems(List<Picture> items) {
+        this.items = items;
         notifyDataSetChanged();
     }
 
     public Picture getItem(int position) {
-        return itmes.get(position);
+        return items.get(position);
     }
 }
