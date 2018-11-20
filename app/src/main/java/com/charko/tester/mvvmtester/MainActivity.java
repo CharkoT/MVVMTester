@@ -53,9 +53,8 @@ public class MainActivity extends AppCompatActivity {
         mViewModel.getPictures(getApplicationContext()).observe(this, new Observer<List<Picture>>() {
             @Override
             public void onChanged(@Nullable List<Picture> pictures) {
-
-                Log.e(">>>>>>>>>>>>>", ">>>>>>>>>>>. MainView Init GettingPicture");
-                pictureViewAdapter.setItmes(pictures);
+                Log.e(">>>>>>>>>>>>>", ">>>>>>>>>>>. update Pictures!!");
+                pictureViewAdapter.setItems(pictures);
             }
         });
 
@@ -78,15 +77,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == 100 && resultCode == RESULT_OK) {
             int position = data.getIntExtra("position", -1);
-            Picture picture = data.getParcelableExtra("items");
+            Picture picture = data.getParcelableExtra("picture");
+
             if (position >= 0)
-                mViewModel.updatePicture(position, picture).observe(this, new Observer<List<Picture>>() {
-                    @Override
-                    public void onChanged(@Nullable List<Picture> pictures) {
-                        Log.e(">>>>>>>>>>>>>", ">>>>>>>>>>>. MainView Edittor Picture");
-                        pictureViewAdapter.setItmes(pictures);
-                    }
-                });
+                mViewModel.updatePicture(position, picture);
         }
     }
 

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,7 +27,9 @@ public class ImageViewFragment extends Fragment {
     private TextView tvLoc;
     private EditText etDesc;
 
+    private Button btnOK;
     private int savePosition;
+    private Picture picture;
 
     public static ImageViewFragment newInstance() {
         return new ImageViewFragment();
@@ -38,7 +41,7 @@ public class ImageViewFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.image_view_fragment, container, false);
         Intent intent = getActivity().getIntent();
-        Picture picture = intent.getParcelableExtra("picture");
+        picture = intent.getParcelableExtra("picture");
         savePosition = intent.getIntExtra("position", -1);
 
         ivPic = rootView.findViewById(R.id.image_iv);
@@ -46,6 +49,7 @@ public class ImageViewFragment extends Fragment {
         tvFilename = rootView.findViewById(R.id.filename_tv);
         tvLoc = rootView.findViewById(R.id.loc_tv);
         etDesc = rootView.findViewById(R.id.etc_et);
+        btnOK = rootView.findViewById(R.id.ok_btn);
 
         Glide.with(getContext()).load(picture.getUri()).into(ivPic);
 
@@ -53,26 +57,34 @@ public class ImageViewFragment extends Fragment {
         tvFilename.setText(picture.getFilename());
         tvLoc.setText(picture.getLocation());
 
+        btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                String desc = etDesc.getText().toString().trim();
+
+                picture.setDesc(desc);
+                intent.putExtra("position", savePosition);
+                intent.putExtra("picture", picture);
+                getActivity().setResult(RESULT_OK, intent);
+                getActivity().finish();
+            }
+        });
+
         return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
 
     @Override
     public void onPause() {
         super.onPause();
 
-        Intent intent = new Intent();
-        String desc = etDesc.getText().toString().trim();
-
-        intent.putExtra("position", savePosition);
-        intent.putExtra("desc", desc);
-        getActivity().setResult(RESULT_OK, intent);
-        getActivity().finish();
+//        getTargetFragment().onActivityResult(100, RESULT_OK, intent);
+//        onActivityResult(100, RESULT_OK, intent);
     }
 
     @Override
