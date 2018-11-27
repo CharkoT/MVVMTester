@@ -2,6 +2,8 @@
 
 android architecture component에서 테스트 및 유지관리가 쉬운 앱을 설계하기 위한 여러 라이브러리를 소개 한다.
 
+* kotlin code link : https://github.com/CharkoT/MVVMTester/tree/first_/app/src/main/java/com/charko/tester/mvvmtester/kotlin
+
 이번에는 그중 mvvm, livedata를 파해쳐 보려 한다.
 
 mvvm을 알기 전에 mvc, mvp구조를 한번 알아보자.
