@@ -1,4 +1,4 @@
-# MVVMTester
+# MVVMTester & Kotlin
 
 android architecture component에서 테스트 및 유지관리가 쉬운 앱을 설계하기 위한 여러 라이브러리를 소개 한다.
 
