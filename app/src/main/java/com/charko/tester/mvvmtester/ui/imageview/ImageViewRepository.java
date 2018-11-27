@@ -17,7 +17,7 @@ public class ImageViewRepository {
     private volatile static ImageViewRepository instance = null;
     private Context context;
 
-    private MutableLiveData<List<Picture>> pictures;
+    private MutableLiveData<List<Picture>> pictures = new MutableLiveData<>();
 
     public ImageViewRepository(Context context) {
         this.context = context;

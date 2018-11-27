@@ -1,10 +1,9 @@
 package com.charko.tester.mvvmtester;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,10 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.charko.tester.mvvmtester.adapter.holder.PictureViewAdapter;
+import com.charko.tester.mvvmtester.kotlin.KotlinMainActivity;
 import com.charko.tester.mvvmtester.simplemodel.Picture;
 import com.charko.tester.mvvmtester.ui.imageview.ImageViewViewModel;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> {
+            startActivity(new Intent(this, KotlinMainActivity.class));
+        });
+
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,12 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO: Main Use the ViewModel
         mViewModel = ViewModelProviders.of(this).get(ImageViewViewModel.class);
-        mViewModel.getPictures(getApplicationContext()).observe(this, new Observer<List<Picture>>() {
-            @Override
-            public void onChanged(@Nullable List<Picture> pictures) {
-                Log.e(">>>>>>>>>>>>>", ">>>>>>>>>>>. update Pictures!!");
-                pictureViewAdapter.setItems(pictures);
-            }
+        mViewModel.getPictures(getApplicationContext()).observe(this, pictures -> {
+            Log.e(">>>>>>>>>>>>>", ">>>>>>>>>>>. update Pictures!!");
+            pictureViewAdapter.setItems(pictures);
         });
 
         pictureViewAdapter.setItemClickListener(new PictureViewAdapter.OnItemClickListener() {
@@ -69,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 100);
             }
         });
+    }
+
+    private void OnNext(long item) {
+        Log.e("OnNEXT", "rxJavaOnNext : " + item);
     }
 
     @Override
