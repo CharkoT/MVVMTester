@@ -20,7 +20,6 @@ import com.charko.tester.mvvmtester.simplemodel.Picture;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class ImageViewFragment extends Fragment {
-
     private ImageView ivPic;
     private TextView tvUri;
     private TextView tvFilename;
