@@ -12,28 +12,9 @@ import com.bumptech.glide.Glide
 import com.charko.tester.mvvmtester.R
 import com.charko.tester.mvvmtester.simplemodel.Picture
 
-class KImageViewHolderAdapter : RecyclerView.Adapter<KImageViewHolderAdapter.KImageViewHolder> {
-    val context: Context
-    var items: ArrayList<Picture> = ArrayList()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+class KImageViewHolderAdapter(val context: Context, var items: ArrayList<Picture>) : RecyclerView.Adapter<KImageViewHolderAdapter.KImageViewHoler>() {
 
-
-    constructor(context: Context, items: ArrayList<Picture>) : super() {
-        this.context = context
-        this.items = items
-    }
-
-
-    interface onClickListener {
-        fun onClick(position: Int)
-    }
-
-    var onClick: onClickListener? = null
-
-    inner class KImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class KImageViewHoler(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         /** TODO ? = null 처리 관련 (null safety)
          *
@@ -47,33 +28,21 @@ class KImageViewHolderAdapter : RecyclerView.Adapter<KImageViewHolderAdapter.KIm
         var tvLoc: TextView
         var etDesc: EditText
 
+
         init {
             ivPicture = itemView.findViewById(R.id.image_iv)
             tvUri = itemView.findViewById(R.id.uri_tv)
             tvFilename = itemView.findViewById(R.id.filename_tv)
             tvLoc = itemView.findViewById(R.id.loc_tv)
             etDesc = itemView.findViewById(R.id.etc_et)
-
-            itemView.setOnClickListener {
-                val position = adapterPosition
-                onClick?.onClick(position)
-            }
         }
     }
 
 
-    fun addClickListener(listener: (Int) -> Unit) {
-        this.onClick = object : onClickListener {
-            override fun onClick(position: Int) {
-                listener(position)
-            }
-        }
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KImageViewHoler {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KImageViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.image_item, parent, false)
-        val image = KImageViewHolder(view)
-
+        val image = KImageViewHoler(view)
         return image
     }
 
@@ -81,7 +50,7 @@ class KImageViewHolderAdapter : RecyclerView.Adapter<KImageViewHolderAdapter.KIm
         return items.count()
     }
 
-    override fun onBindViewHolder(holder: KImageViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: KImageViewHoler, position: Int) {
         val picture = items[position]
 
         Glide.with(context).load(picture.uri).into(holder.ivPicture)
@@ -89,11 +58,6 @@ class KImageViewHolderAdapter : RecyclerView.Adapter<KImageViewHolderAdapter.KIm
         holder.tvLoc.text = picture.location
         holder.tvUri.text = picture.uri
         holder.etDesc.setText(picture.desc)
-
-        holder.etDesc.isFocusable = false
-        holder.etDesc.isFocusableInTouchMode = false
-        holder.etDesc.isClickable = false
-
 
         /**
          * textView는 .text로 text를 수정 할 수 있지만,
