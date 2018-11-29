@@ -2,11 +2,9 @@ package com.charko.tester.mvvmtester.ui.imageview;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,15 +17,7 @@ import com.bumptech.glide.Glide;
 import com.charko.tester.mvvmtester.R;
 import com.charko.tester.mvvmtester.simplemodel.Picture;
 
-import java.util.concurrent.Callable;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class ImageViewFragment extends Fragment {
 
@@ -42,7 +32,6 @@ public class ImageViewFragment extends Fragment {
     private Picture picture;
 
     private final CompositeDisposable disposables = new CompositeDisposable();
-
 
     public static ImageViewFragment newInstance() {
         return new ImageViewFragment();
@@ -63,7 +52,6 @@ public class ImageViewFragment extends Fragment {
         tvLoc = rootView.findViewById(R.id.loc_tv);
         etDesc = rootView.findViewById(R.id.etc_et);
 
-
         btnOK = rootView.findViewById(R.id.ok_btn);
 
         Glide.with(getContext()).load(picture.getUri()).into(ivPic);
@@ -73,51 +61,18 @@ public class ImageViewFragment extends Fragment {
         tvLoc.setText(picture.getLocation());
         etDesc.setText(picture.getDesc());
 
-//        btnOK.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent();
-//                String desc = etDesc.getText().toString().trim();
-//
-//                picture.setDesc(desc);
-//                intent.putExtra("position", savePosition);
-//                intent.putExtra("picture", picture);
-//                getActivity().setResult(RESULT_OK, intent);
-//                getActivity().finish();
-//            }
-//        });
+        btnOK.setOnClickListener(view -> {
+            Intent intent1 = new Intent();
+            String desc = etDesc.getText().toString().trim();
+
+            picture.setDesc(desc);
+            intent1.putExtra("position", savePosition);
+            intent1.putExtra("picture", picture);
+            getActivity().setResult(getActivity().RESULT_OK, intent1);
+            getActivity().finish();
+        });
 
         return rootView;
-    }
-
-    static Observable<String> sampleObservable() {
-        return Observable.defer(new Callable<ObservableSource<? extends String>>() {
-            @Override public ObservableSource<? extends String> call() throws Exception {
-                // Do some long running operation
-                SystemClock.sleep(5000);
-                return Observable.just("one", "two", "three", "four", "five");
-            }
-        });
-    }
-    void onRunSchedulerExampleButtonClicked() {
-        disposables.add(sampleObservable()
-                // Run on a background thread
-                .subscribeOn(Schedulers.io())
-                // Be notified on the main thread
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<String>() {
-                    @Override public void onComplete() {
-                        Log.d(TAG, "onComplete()");
-                    }
-
-                    @Override public void onError(Throwable e) {
-                        Log.e(TAG, "onError()", e);
-                    }
-
-                    @Override public void onNext(String string) {
-                        Log.d(TAG, "onNext(" + string + ")");
-                    }
-                }));
     }
 
     @Override
