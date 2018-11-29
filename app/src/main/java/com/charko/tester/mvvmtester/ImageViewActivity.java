@@ -27,14 +27,4 @@ public class ImageViewActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 }
