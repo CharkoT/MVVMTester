@@ -24,7 +24,7 @@ class KotlinImageViewViewModel : ViewModel() {
         pictures?.let { return pictures as MutableLiveData<List<Picture>> }
     }
 
-    fun getUpdate(position: Int, picture: Picture) {
+    fun update(position: Int, picture: Picture) {
         if (repository != null)
             repository?.updatePicture(position, picture)
     }

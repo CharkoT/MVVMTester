@@ -62,14 +62,14 @@ class KImageViewRepository {
             if (index >= 10)
                 break
 
-            Log.e(">>>>>>>>>>>>", ">>>>>>>>>> imageCursor.getPosition() : $imageCur.getPosition()")
+            Log.e(">>>>>>>>>>>>", ">>>>>>>>>>KKK imageCursor.getPosition() : $imageCur.getPosition()")
 
             if (imageCur.getPosition() < index) {
                 imageCur.moveToNext()
                 continue
             }
 
-            Log.e(">>>>>>>>>>>>", ">>>>>>>>>> getData : " + imageCur.getString(0))
+            Log.e(">>>>>>>>>>>>", ">>>>>>>>>>KKK getData : " + imageCur.getString(0))
             val picture = ImageMigration(imageCur.getString(0), imageCur.getString(1))
 
             if (picture != null) {
