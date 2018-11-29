@@ -45,13 +45,10 @@ public class PictureViewAdapter extends RecyclerView.Adapter<PictureViewAdapter.
             tvLoc = itemView.findViewById(R.id.loc_tv);
             etDesc = itemView.findViewById(R.id.etc_et);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if (onItemClickListener != null && position != RecyclerView.NO_POSITION)
-                        onItemClickListener.onItemClick(position);
-                }
+            itemView.setOnClickListener(view -> {
+                int position = getAdapterPosition();
+                if (onItemClickListener != null && position != RecyclerView.NO_POSITION)
+                    onItemClickListener.onItemClick(position);
             });
         }
     }
