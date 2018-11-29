@@ -60,16 +60,19 @@ public class ImageViewFragment extends Fragment {
         tvLoc.setText(picture.getLocation());
         etDesc.setText(picture.getDesc());
 
-        btnOK.setOnClickListener(view -> {
-            Intent intent1 = new Intent();
-            String desc = etDesc.getText().toString().trim();
-
-            picture.setDesc(desc);
-            intent1.putExtra("position", savePosition);
-            intent1.putExtra("picture", picture);
-            getActivity().setResult(getActivity().RESULT_OK, intent1);
-            getActivity().finish();
-        });
+//        btnOK.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent();
+//                String desc = etDesc.getText().toString().trim();
+//
+//                picture.setDesc(desc);
+//                intent.putExtra("position", savePosition);
+//                intent.putExtra("picture", picture);
+//                getActivity().setResult(RESULT_OK, intent);
+//                getActivity().finish();
+//            }
+//        });
 
         return rootView;
     }
